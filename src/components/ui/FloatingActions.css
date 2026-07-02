@@ -1,0 +1,73 @@
+.floating-dual-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid rgba(232, 228, 222, 0.9);
+  box-shadow: 0 8px 32px rgba(4, 5, 8, 0.16);
+  padding: 5px;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.floating-dual-btn__slant {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  height: 100%;
+  width: 54%;
+  background: #eeedeb;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+
+.floating-dual-btn__segment {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  background: transparent;
+  text-decoration: none;
+  color: #040508;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.floating-dual-btn__segment:hover {
+  opacity: 0.9;
+}
+
+.floating-dual-btn__segment--whatsapp {
+  padding: 0 2px 0 18px;
+}
+
+.floating-dual-btn__segment--start {
+  padding: 0 5px 0 8px;
+}
+
+.floating-dual-btn__icon {
+  display: flex;
+  height: 34px;
+  width: 34px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-interaction);
+  color: #ffffff;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.floating-dual-btn__segment:hover .floating-dual-btn__icon {
+  background: var(--color-interaction-hover);
+  transform: scale(1.04);
+}
