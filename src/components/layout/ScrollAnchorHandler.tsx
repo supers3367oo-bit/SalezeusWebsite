@@ -11,7 +11,7 @@ export default function ScrollAnchorHandler() {
       if (!href?.startsWith('#')) return
 
       event.preventDefault()
-      scrollPageToSection(href, { offset: -80 })
+      scrollPageToSection(href, { offset: -88, retries: 2 })
     }
 
     document.addEventListener('click', onClick)

@@ -23,7 +23,7 @@ export default function Footer() {
     { label: t('nav.about'), to: '/about' },
     { label: t('nav.portfolio'), to: '/portfolio' },
     { label: t('nav.insights'), to: '/insights' },
-    { label: t('footer.careers'), to: '/about#team' },
+    { label: t('footer.careers'), to: '/about#team-heading' },
     { label: t('nav.contact'), to: '/contact' },
   ]
 

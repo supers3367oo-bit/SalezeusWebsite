@@ -115,6 +115,10 @@ html[dir='rtl'] .sz-btn__arrow {
   transform: scaleX(-1);
 }
 
+html[dir='rtl'] .sz-btn__arrow--native-rtl {
+  transform: none;
+}
+
 html[dir='rtl'] .sz-btn__label,
 html[dir='rtl'] .btn__label {
   padding-block: 0;

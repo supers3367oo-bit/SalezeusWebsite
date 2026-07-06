@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ArrowUpRight, ArrowUpLeft } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import clsx from 'clsx'
 import Logo from '../ui/Logo'
@@ -77,6 +77,12 @@ export default function Navbar() {
     )
   }
 
+  const contactButtonIcon = isRtl ? (
+    <ArrowUpLeft className="sz-btn__arrow sz-btn__arrow--native-rtl" strokeWidth={2.25} />
+  ) : (
+    <ArrowUpRight className="sz-btn__arrow" strokeWidth={2.25} />
+  )
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 pointer-events-none px-3 pt-3 sm:px-5 sm:pt-4 md:px-8 lg:px-10">
       <div className="relative mx-auto w-full max-w-[90rem] pointer-events-auto">
@@ -116,7 +122,7 @@ export default function Navbar() {
             <LanguageToggle className="hidden sm:inline-flex" />
 
             <div className="hidden lg:block">
-              <Button to="/contact" size="sm">
+              <Button to="/contact" size="sm" icon={contactButtonIcon} dir={dir}>
                 {t('nav.contact')}
               </Button>
             </div>
@@ -152,6 +158,8 @@ export default function Navbar() {
                 to="/contact"
                 size="sm"
                 className="mt-5 w-full justify-center"
+                icon={contactButtonIcon}
+                dir={dir}
                 onClick={() => setMobileOpen(false)}
               >
                 {t('nav.contact')}

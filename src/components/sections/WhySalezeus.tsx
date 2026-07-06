@@ -26,6 +26,12 @@ const CARDS = [
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
+const MOBILE_CARD_BACKGROUNDS = [
+  '/images/why/strategy-mobile.png',
+  '/images/why/creative-mobile.png',
+  '/images/why/business-mobile.png',
+] as const
+
 type WhyCard = {
   variant: 'dark' | 'light'
   title: readonly [string, string]
@@ -43,7 +49,14 @@ function CardBackground({ index }: { variant: 'dark' | 'light'; index: number })
   return (
     <>
       <div className={`absolute inset-0 ${fallbackClass}`} aria-hidden />
-      <div className="absolute inset-0">
+      <img
+        src={MOBILE_CARD_BACKGROUNDS[index]}
+        alt=""
+        aria-hidden
+        draggable={false}
+        className="absolute inset-0 h-full w-full object-cover lg:hidden"
+      />
+      <div className="absolute inset-0 hidden lg:block">
         {index === 0 && (
           <Aurora
             colorStops={['#3258A4', '#1e3460', '#040508']}
@@ -102,9 +115,14 @@ function CardTitle({
         letterSpacing: '-0.03em',
       }}
     >
-      {lines[0]}
-      <br />
-      {lines[1]}
+      <span className="lg:hidden whitespace-nowrap">
+        {lines[0]} {lines[1]}
+      </span>
+      <span className="hidden lg:inline">
+        {lines[0]}
+        <br />
+        {lines[1]}
+      </span>
     </h3>
   )
 }
@@ -270,7 +288,7 @@ export default function WhySalezeus({ sectionId = 'about' }: WhySalezeusProps) {
           >
             {t('why.closing')}
           </p>
-          <Button to="/#contact">
+          <Button to="/about#team-heading">
             {t('why.cta')}
           </Button>
         </motion.div>

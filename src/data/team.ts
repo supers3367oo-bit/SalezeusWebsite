@@ -29,6 +29,40 @@ export const TEAM: TeamMember[] = [
       'Meet Abd Alkader, our skilled Back-End Developer. He builds secure, scalable, and high-performance server-side systems, manages databases, and ensures smooth front-end to back-end integration. With a strong focus on clean architecture and security, Abd Alkader delivers reliable solutions that support business growth and long-term client success.',
   },
   {
+    src: '/team/t10.png',
+    realSrc: '/team/real/tt10.png',
+    name: 'Aya Khairbek',
+    role: 'Backend Developer',
+    firstName: 'Aya',
+    heroName: 'Aya Khairbek',
+    bio: 'Five years engineering robust APIs and database systems.',
+    aboutBio:
+      'Meet Aya, our talented Back-End Developer and Software Engineer specializing in Laravel. She builds powerful back-end systems, designs efficient databases, ensures seamless server-UI integration, and develops custom admin panels with strong security and optimal performance. Aya delivers scalable, reliable solutions for long-term client success.',
+  },
+  {
+    src: '/team/t11.png',
+    realSrc: '/team/real/tt11.png',
+    name: 'Ola Masoud',
+    role: 'UI/UX Designer',
+    firstName: 'Ola',
+    heroName: 'Ola Masoud',
+    bio: 'Six years designing intuitive experiences users truly trust.',
+    aboutBio:
+      'Meet Ola, our talented UI/UX Designer with expertise in Figma. She creates intuitive, user-centered digital experiences through user research, wireframes, and high-fidelity designs that blend functionality with visual appeal. Ola collaborates with teams to build scalable design systems and delivers seamless, engaging interfaces aligned with user needs and business goals.',
+  },
+  {
+    src: '/team/t5.png',
+    realSrc: '/team/real/tt5.png',
+    name: 'Esraa Elnajjar',
+    role: 'Frontend Developer',
+    firstName: 'Esraa',
+    heroName: 'Esraa Elnajjar',
+    heroNameSize: 'compact',
+    bio: 'Six years building polished, high-performance web interfaces.',
+    aboutBio:
+      'Meet Esraa, our skilled Front-End Developer. She transforms designs into responsive, interactive, and user-friendly interfaces using clean, efficient code. Specializing in modern web experiences, Esraa ensures websites are fast, accessible, and visually consistent across all devices, delivering seamless user experiences through close collaboration with designers and back-end teams.',
+  },
+  {
     src: '/team/t2.png',
     realSrc: '/team/real/t2.png',
     name: 'Heba Ghabab',
@@ -61,18 +95,7 @@ export const TEAM: TeamMember[] = [
     aboutBio:
       'Meet Aya, our passionate Graphic Designer. She transforms ideas into visually compelling designs that strengthen brand identity and boost audience engagement. With expertise in social media creatives, logos, branding, and marketing materials, Aya combines creativity with strategy to deliver clear, memorable, and impactful designs.',
   },
-  {
-    src: '/team/t5.png',
-    realSrc: '/team/real/tt5.png',
-    name: 'Esraa Elnajjar',
-    role: 'Frontend Developer',
-    firstName: 'Esraa',
-    heroName: 'Esraa Elnajjar',
-    heroNameSize: 'compact',
-    bio: 'Six years building polished, high-performance web interfaces.',
-    aboutBio:
-      'Meet Esraa, our skilled Front-End Developer. She transforms designs into responsive, interactive, and user-friendly interfaces using clean, efficient code. Specializing in modern web experiences, Esraa ensures websites are fast, accessible, and visually consistent across all devices, delivering seamless user experiences through close collaboration with designers and back-end teams.',
-  },
+  
   {
     src: '/team/t6.png',
     realSrc: '/team/real/tt6.png',
@@ -118,28 +141,7 @@ export const TEAM: TeamMember[] = [
     aboutBio:
       'Meet Ibrahim, our experienced SEO Expert. He helps brands boost online visibility through effective keyword research, on-page and technical SEO, content optimization, and performance analysis. Combining data-driven insights with best practices, Ibrahim drives higher rankings, qualified traffic, and sustainable organic growth.',
   },
-  {
-    src: '/team/t10.png',
-    realSrc: '/team/real/tt10.png',
-    name: 'Aya Khairbek',
-    role: 'Backend Developer',
-    firstName: 'Aya',
-    heroName: 'Aya Khairbek',
-    bio: 'Five years engineering robust APIs and database systems.',
-    aboutBio:
-      'Meet Aya, our talented Back-End Developer and Software Engineer specializing in Laravel. She builds powerful back-end systems, designs efficient databases, ensures seamless server-UI integration, and develops custom admin panels with strong security and optimal performance. Aya delivers scalable, reliable solutions for long-term client success.',
-  },
-  {
-    src: '/team/t11.png',
-    realSrc: '/team/real/tt11.png',
-    name: 'Ola Masoud',
-    role: 'UI/UX Designer',
-    firstName: 'Ola',
-    heroName: 'Ola Masoud',
-    bio: 'Six years designing intuitive experiences users truly trust.',
-    aboutBio:
-      'Meet Ola, our talented UI/UX Designer with expertise in Figma. She creates intuitive, user-centered digital experiences through user research, wireframes, and high-fidelity designs that blend functionality with visual appeal. Ola collaborates with teams to build scalable design systems and delivers seamless, engaging interfaces aligned with user needs and business goals.',
-  },
+  
 ]
 
 export const CITY_MARKERS = [

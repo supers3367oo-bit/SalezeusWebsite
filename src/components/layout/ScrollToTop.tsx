@@ -6,11 +6,13 @@ export default function ScrollToTop() {
   const { pathname, hash } = useLocation()
 
   useEffect(() => {
+    let cancelScroll: (() => void) | undefined
+
     const scrollToTarget = () => {
       refreshLocomotiveScroll()
 
       if (hash) {
-        scrollPageToSection(hash, { offset: -80 })
+        cancelScroll = scrollPageToSection(hash, { offset: -88, retries: 4 })
         return
       }
 
@@ -22,12 +24,13 @@ export default function ScrollToTop() {
       }
     }
 
-    const t1 = window.setTimeout(scrollToTarget, 80)
+    const t1 = window.setTimeout(scrollToTarget, hash ? 120 : 80)
     const t2 = window.setTimeout(refreshLocomotiveScroll, 500)
 
     return () => {
       window.clearTimeout(t1)
       window.clearTimeout(t2)
+      cancelScroll?.()
     }
   }, [pathname, hash])
 
