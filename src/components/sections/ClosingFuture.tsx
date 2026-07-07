@@ -3,7 +3,6 @@ import { motion, useReducedMotion } from 'framer-motion'
 import Button from '../ui/Button'
 import SplitText from '../ui/SplitText'
 import ScrollReveal from '../ui/ScrollReveal'
-import Particles from '../ui/backgrounds/Particles'
 import { CONTACT_EMAIL } from '../../data/contact'
 import { useLocale } from '../../providers/LocaleProvider'
 
@@ -22,23 +21,31 @@ export default function ClosingFuture({ sectionId = 'contact' }: ClosingFuturePr
       className="relative min-h-[100dvh] flex items-center bg-sz-dark overflow-hidden py-24 lg:py-32"
       id={sectionId}
     >
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <Particles
-          particleColors={['#3258A4', '#F0B80D', '#ffffff']}
-          particleCount={80}
-          particleSpread={8}
-          speed={0.08}
-          particleBaseSize={80}
-          moveParticlesOnHover={!reduce}
-          alphaParticles
-        />
-      </div>
-
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
             'radial-gradient(ellipse 75% 55% at 50% 100%, rgba(50,88,164,0.22) 0%, transparent 65%)',
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(circle at 20% 28%, rgba(50,88,164,0.28) 0%, transparent 34%),
+            radial-gradient(circle at 78% 26%, rgba(50,88,164,0.22) 0%, transparent 30%),
+            radial-gradient(circle at 52% 12%, rgba(240,184,13,0.12) 0%, transparent 24%),
+            radial-gradient(circle at 34% 72%, rgba(255,255,255,0.08) 0%, transparent 26%),
+            radial-gradient(circle at 68% 78%, rgba(255,255,255,0.06) 0%, transparent 24%)
+          `,
+        }}
+      />
+      <div
+        className="absolute -inset-[12%] pointer-events-none opacity-35"
+        style={{
+          background:
+            'conic-gradient(from 180deg at 50% 55%, transparent 0deg, rgba(50,88,164,0.25) 110deg, transparent 220deg, rgba(240,184,13,0.12) 300deg, transparent 360deg)',
+          filter: 'blur(42px)',
         }}
       />
 
@@ -69,9 +76,9 @@ export default function ClosingFuture({ sectionId = 'contact' }: ClosingFuturePr
 
         <ScrollReveal
           className="max-w-xl mx-auto mb-12"
-          textClassName="text-white/50"
+          textClassName="text-white/80 sm:text-white/60"
           blurStrength={4}
-          baseOpacity={0.12}
+          baseOpacity={0.45}
           scrollStart="top bottom-=8%"
           scrollEnd="top center+=5%"
         >

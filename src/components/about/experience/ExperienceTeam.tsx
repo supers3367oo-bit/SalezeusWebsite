@@ -285,27 +285,26 @@ function TeamRow({
   reduce: boolean
 }) {
   return (
-    <div onMouseLeave={() => !reduce && onDeactivate()}>
-      <div
-        className={clsx(
-          'team-row grid gap-4 sm:gap-5 lg:gap-6',
-          columns === 4
-            ? 'grid-cols-2 sm:grid-cols-4'
-            : 'mx-auto max-w-[min(100%,720px)] grid-cols-2 sm:grid-cols-3'
-        )}
-      >
-        {members.map((member, i) => (
-          <MemberCard
-            key={member.src}
-            member={member}
-            index={rowOffset + i}
-            isActive={activeSrc === member.src}
-            isDimmed={activeSrc !== null && activeSrc !== member.src}
-            reduce={reduce}
-            onActivate={() => onActivate(member.src)}
-          />
-        ))}
-      </div>
+    <div
+      onMouseLeave={() => !reduce && onDeactivate()}
+      className={clsx(
+        'team-row grid gap-4 sm:gap-5 lg:gap-6',
+        columns === 4
+          ? 'grid-cols-2 sm:grid-cols-4'
+          : 'mx-auto w-full max-w-[min(100%,900px)] grid-cols-2 sm:grid-cols-3'
+      )}
+    >
+      {members.map((member, i) => (
+        <MemberCard
+          key={member.src}
+          member={member}
+          index={rowOffset + i}
+          isActive={activeSrc === member.src}
+          isDimmed={activeSrc !== null && activeSrc !== member.src}
+          reduce={reduce}
+          onActivate={() => onActivate(member.src)}
+        />
+      ))}
     </div>
   )
 }

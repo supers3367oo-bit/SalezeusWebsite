@@ -75,7 +75,7 @@ export default function Hero() {
         zIndex: 30,
         left: '50%',
         width: '82%',
-        height: '68%',
+        height: '86%',
         bottom: '0%',
         overflow: 'hidden',
         transition: TRANSITION,
@@ -403,8 +403,8 @@ export default function Hero() {
                 fontFamily: "'Anton', sans-serif",
                 fontSize: isMobile
                   ? activeMember.heroNameSize === 'compact'
-                    ? 'clamp(32px, 10vw, 56px)'
-                    : 'clamp(38px, 12vw, 64px)'
+                    ? 'clamp(58px, 16vw, 102px)'
+                    : 'clamp(72px, 20vw, 138px)'
                   : activeMember.heroNameSize === 'compact'
                     ? 'clamp(60px, 17vw, 240px)'
                     : 'clamp(72px, 22vw, 300px)',
@@ -412,9 +412,10 @@ export default function Hero() {
                 color: '#3258A4',
                 lineHeight: 1,
                 textTransform: 'uppercase',
-                letterSpacing: '-0.02em',
-                whiteSpace: isMobile ? 'normal' : 'nowrap',
+                letterSpacing: isMobile ? '-0.04em' : '-0.02em',
+                whiteSpace: 'nowrap',
                 textAlign: 'center',
+                width: isMobile ? '100%' : 'auto',
                 maxWidth: '100%',
                 userSelect: 'none',
               }}
@@ -486,8 +487,16 @@ export default function Hero() {
                       width: '100%',
                       height: '100%',
                       objectFit: 'contain',
-                      objectPosition: 'top center',
-                      transform: 'scale(3.25)',
+                      objectPosition:
+                        member.firstName.toLowerCase().includes('ibrahim') ||
+                        member.name.toLowerCase().includes('ibrahim')
+                          ? 'top center'
+                          : 'top center',
+                      transform:
+                        member.firstName.toLowerCase().includes('ibrahim') ||
+                        member.name.toLowerCase().includes('ibrahim')
+                          ? 'scale(2.75)'
+                          : 'scale(3.25)',
                       transformOrigin: 'top center',
                       userSelect: 'none',
                     }}

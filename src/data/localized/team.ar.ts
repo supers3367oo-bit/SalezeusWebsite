@@ -48,7 +48,7 @@ export const TEAM_AR: TeamMember[] = [
   },
   {
     src: '/team/t2.png',
-    realSrc: '/team/real/t2.png',
+    realSrc: '/team/real/tt2.png',
     name: 'هبة غباب',
     role: 'التسويق',
     firstName: 'هبة',

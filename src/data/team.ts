@@ -64,7 +64,7 @@ export const TEAM: TeamMember[] = [
   },
   {
     src: '/team/t2.png',
-    realSrc: '/team/real/t2.png',
+    realSrc: '/team/real/tt2.png',
     name: 'Heba Ghabab',
     role: 'Marketing / Media buyer',
     firstName: 'Heba',
@@ -75,7 +75,7 @@ export const TEAM: TeamMember[] = [
   },
   {
     src: '/team/t3.png',
-    realSrc: '/team/real/t3.png',
+    realSrc: '/team/real/tt3.png',
     name: 'Muhammed Darwish',
     role: 'CEO · Graphic Designer',
     firstName: 'Muhammed',

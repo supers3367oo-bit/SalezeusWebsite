@@ -5,6 +5,7 @@ import Aurora from '../ui/Aurora'
 import Particles from '../ui/backgrounds/Particles'
 import Threads from '../ui/backgrounds/Threads'
 import { useLocale } from '../../providers/LocaleProvider'
+import { useLightMotion } from '../../lib/useLightMotion'
 
 const CARDS = [
   {
@@ -38,7 +39,14 @@ type WhyCard = {
   footnote: string
 }
 
-function CardBackground({ index }: { variant: 'dark' | 'light'; index: number }) {
+function CardBackground({
+  index,
+  useImageFallback,
+}: {
+  variant: 'dark' | 'light'
+  index: number
+  useImageFallback: boolean
+}) {
   const fallbackClass =
     index === 0
       ? 'bg-gradient-to-br from-[#1a2d52] via-[#243d6e] to-[#0a0b0f]'
@@ -49,46 +57,49 @@ function CardBackground({ index }: { variant: 'dark' | 'light'; index: number })
   return (
     <>
       <div className={`absolute inset-0 ${fallbackClass}`} aria-hidden />
-      <img
-        src={MOBILE_CARD_BACKGROUNDS[index]}
-        alt=""
-        aria-hidden
-        draggable={false}
-        className="absolute inset-0 h-full w-full object-cover lg:hidden"
-      />
-      <div className="absolute inset-0 hidden lg:block">
-        {index === 0 && (
-          <Aurora
-            colorStops={['#3258A4', '#1e3460', '#040508']}
-            amplitude={0.85}
-            blend={0.42}
-            speed={0.8}
-          />
-        )}
-        {index === 1 && (
-          <Particles
-            className="h-full w-full"
-            particleCount={180}
-            particleSpread={9}
-            speed={0.08}
-            particleColors={['#3258A4', '#F0B80D', '#303640']}
-            moveParticlesOnHover
-            particleHoverFactor={0.6}
-            alphaParticles
-            particleBaseSize={90}
-            sizeRandomness={0.8}
-            cameraDistance={22}
-          />
-        )}
-        {index === 2 && (
-          <Threads
-            color={[0.88, 0.92, 1]}
-            amplitude={0.85}
-            distance={0.28}
-            enableMouseInteraction
-          />
-        )}
-      </div>
+      {useImageFallback ? (
+        <img
+          src={MOBILE_CARD_BACKGROUNDS[index]}
+          alt=""
+          aria-hidden
+          draggable={false}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : (
+        <div className="absolute inset-0">
+          {index === 0 && (
+            <Aurora
+              colorStops={['#3258A4', '#1e3460', '#040508']}
+              amplitude={0.85}
+              blend={0.42}
+              speed={0.8}
+            />
+          )}
+          {index === 1 && (
+            <Particles
+              className="h-full w-full"
+              particleCount={180}
+              particleSpread={9}
+              speed={0.08}
+              particleColors={['#3258A4', '#F0B80D', '#303640']}
+              moveParticlesOnHover
+              particleHoverFactor={0.6}
+              alphaParticles
+              particleBaseSize={90}
+              sizeRandomness={0.8}
+              cameraDistance={22}
+            />
+          )}
+          {index === 2 && (
+            <Threads
+              color={[0.88, 0.92, 1]}
+              amplitude={0.85}
+              distance={0.28}
+              enableMouseInteraction
+            />
+          )}
+        </div>
+      )}
     </>
   )
 }
@@ -131,10 +142,12 @@ function DarkFactCard({
   card,
   index,
   isRtl,
+  useImageFallback,
 }: {
   card: WhyCard
   index: number
   isRtl: boolean
+  useImageFallback: boolean
 }) {
   const isBrandBlue = index === 2
 
@@ -149,7 +162,7 @@ function DarkFactCard({
       }`}
     >
       <div className="absolute inset-0 min-h-[200px]">
-        <CardBackground variant="dark" index={index} />
+        <CardBackground variant="dark" index={index} useImageFallback={useImageFallback} />
         <div
           className={`absolute inset-0 ${
             isBrandBlue
@@ -180,10 +193,12 @@ function LightFactCard({
   card,
   index,
   isRtl,
+  useImageFallback,
 }: {
   card: WhyCard
   index: number
   isRtl: boolean
+  useImageFallback: boolean
 }) {
   return (
     <motion.article
@@ -194,7 +209,7 @@ function LightFactCard({
       className="relative flex min-h-[360px] flex-col overflow-hidden rounded-card bg-[#ECE8E2] sm:min-h-[400px] lg:min-h-[440px]"
     >
       <div className="absolute inset-0 min-h-[200px] opacity-70">
-        <CardBackground variant="light" index={index} />
+        <CardBackground variant="light" index={index} useImageFallback={useImageFallback} />
       </div>
 
       <div className="relative z-10 flex h-full min-h-[inherit] flex-col p-5 sm:p-6">
@@ -220,6 +235,7 @@ type WhySalezeusProps = {
 
 export default function WhySalezeus({ sectionId = 'about' }: WhySalezeusProps) {
   const { t, locale } = useLocale()
+  const lightMotion = useLightMotion()
   const isRtl = locale === 'ar'
   const cards = [
     {
@@ -270,9 +286,9 @@ export default function WhySalezeus({ sectionId = 'about' }: WhySalezeusProps) {
         </motion.div>
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-5">
-          <DarkFactCard card={cards[0]} index={0} isRtl={isRtl} />
-          <LightFactCard card={cards[1]} index={1} isRtl={isRtl} />
-          <DarkFactCard card={cards[2]} index={2} isRtl={isRtl} />
+          <DarkFactCard card={cards[0]} index={0} isRtl={isRtl} useImageFallback={lightMotion} />
+          <LightFactCard card={cards[1]} index={1} isRtl={isRtl} useImageFallback={lightMotion} />
+          <DarkFactCard card={cards[2]} index={2} isRtl={isRtl} useImageFallback={lightMotion} />
         </div>
 
         <motion.div
