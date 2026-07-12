@@ -389,7 +389,8 @@ body.custom-cursor-active * {
   }
 }
 
-/* Subtle scrollbar */
-::-webkit-scrollbar { width: 6px; }
+/* Subtle scrollbar (width = vertical, height = horizontal) */
+::-webkit-scrollbar { width: 6px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #303640; border-radius: 3px; }
+* { scrollbar-width: thin; }

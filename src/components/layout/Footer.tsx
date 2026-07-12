@@ -3,12 +3,13 @@ import { ArrowUp, Linkedin, Instagram, Twitter, Youtube } from 'lucide-react'
 import Logo from '../ui/Logo'
 import Button from '../ui/Button'
 import { scrollPageToTop } from '../../lib/locomotive'
-import { CONTACT_EMAIL } from '../../data/contact'
+import { useCmsContact } from '../../cms/useCmsContact'
 import ContactPhones from '../contact/ContactPhones'
 import { useLocale } from '../../providers/LocaleProvider'
 
 export default function Footer() {
   const { t } = useLocale()
+  const { email } = useCmsContact()
 
   const services = [
     { label: t('services.branding'), to: '/services/branding' },
@@ -130,11 +131,11 @@ export default function Footer() {
               <div>
                 <p className="text-white/30 text-xs mb-1" style={{ fontFamily: 'var(--font-body)' }}>{t('footer.email')}</p>
                 <a
-                  href={`mailto:${CONTACT_EMAIL}`}
+                  href={`mailto:${email}`}
                   className="text-white/60 hover:text-white transition-colors duration-200"
                   style={{ fontFamily: 'var(--font-body)', fontSize: 14 }}
                 >
-                  {CONTACT_EMAIL}
+                  {email}
                 </a>
               </div>
               <ContactPhones />

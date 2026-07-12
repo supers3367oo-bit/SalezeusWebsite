@@ -1,7 +1,5 @@
 import clsx from 'clsx'
-
-const LOGO_ON_DARK = '/images/brand/logo-wordmark.png'
-const LOGO_ON_LIGHT = '/images/brand/logo-wordmark-on-light.png'
+import { useSiteAsset } from '../../providers/SiteAssetsProvider'
 
 type LogoProps = {
   className?: string
@@ -11,9 +9,12 @@ type LogoProps = {
 }
 
 export default function Logo({ className, variant = 'dark', height = 28 }: LogoProps) {
+  const logoOnDark = useSiteAsset('brand.logoOnDark')
+  const logoOnLight = useSiteAsset('brand.logoOnLight')
+
   return (
     <img
-      src={variant === 'light' ? LOGO_ON_LIGHT : LOGO_ON_DARK}
+      src={variant === 'light' ? logoOnLight : logoOnDark}
       alt="Salezeus"
       className={clsx('w-auto object-contain', className)}
       style={{ height }}

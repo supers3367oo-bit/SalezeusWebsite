@@ -6,12 +6,12 @@ import Aurora from '../ui/Aurora'
 import DotGrid from '../ui/backgrounds/DotGrid'
 import { refreshLocomotiveScroll } from '../../lib/locomotive'
 import { useLocale } from '../../providers/LocaleProvider'
-
-const HERO_IMAGE = '/images/about/hero-team-collab.png'
+import { useSiteAsset } from '../../providers/SiteAssetsProvider'
 
 export default function ServicesHero() {
   const { t } = useLocale()
   const reduce = useReducedMotion() ?? false
+  const heroImage = useSiteAsset('about.hero')
 
   useLayoutEffect(() => {
     requestAnimationFrame(() => refreshLocomotiveScroll())
@@ -59,7 +59,7 @@ export default function ServicesHero() {
           transition={{ duration: 0.65, delay: 0.05 }}
         >
           <img
-            src={HERO_IMAGE}
+            src={heroImage}
             alt={t('experience.opening.heroAlt')}
             className="w-[84px] sm:w-[96px] lg:w-[108px] rounded-card border border-white/[0.12] shadow-[0_16px_40px_rgba(0,0,0,0.4)] object-cover aspect-square"
             loading="eager"

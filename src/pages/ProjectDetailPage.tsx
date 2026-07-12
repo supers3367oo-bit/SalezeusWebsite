@@ -5,16 +5,16 @@ import ProjectDetailHero from '../components/projects/detail/ProjectDetailHero'
 import ProjectBehanceGallery from '../components/projects/detail/ProjectBehanceGallery'
 import ProjectMoreWork from '../components/projects/detail/ProjectMoreWork'
 import { ProjectGalleryProvider } from '../components/projects/detail/ProjectGalleryContext'
-import { getProjectBySlug, getRelatedProjects } from '../data/projectDetails'
 import { collectProjectGalleryImages } from '../lib/collectProjectGalleryImages'
 import { refreshLocomotiveScroll } from '../lib/locomotive'
 import { useLocale } from '../providers/LocaleProvider'
+import { useProjectDetail, useRelatedProjects } from '../i18n/useLocalizedData'
 
 export default function ProjectDetailPage() {
-  const { locale, t } = useLocale()
+  const { t } = useLocale()
   const { slug } = useParams<{ slug: string }>()
-  const project = slug ? getProjectBySlug(slug, locale) : undefined
-  const related = project ? getRelatedProjects(project, locale) : []
+  const project = useProjectDetail(slug)
+  const related = useRelatedProjects(slug)
   const galleryImages = useMemo(
     () => (project ? collectProjectGalleryImages(project) : []),
     [project]

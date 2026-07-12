@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import WhatsAppIcon from './WhatsAppIcon'
-import { WHATSAPP_URL } from '../../data/contact'
+import { useCmsContact } from '../../cms/useCmsContact'
 import { useLocale } from '../../providers/LocaleProvider'
 import './FloatingActions.css'
 
 export default function FloatingActions() {
   const { t } = useLocale()
+  const { whatsappUrl } = useCmsContact()
 
   return (
     <div className="floating-actions-wrap fixed bottom-6 end-6 z-40" role="group" aria-label={t('floating.groupAria')}>
@@ -14,7 +15,7 @@ export default function FloatingActions() {
         <div className="floating-dual-btn__slant" aria-hidden />
 
         <a
-          href={WHATSAPP_URL}
+          href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="floating-dual-btn__segment floating-dual-btn__segment--whatsapp group"

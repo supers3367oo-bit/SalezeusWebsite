@@ -3,23 +3,22 @@ import { motion, useReducedMotion } from 'framer-motion'
 import SplitText from '../ui/SplitText'
 import ScrollReveal from '../ui/ScrollReveal'
 import Button from '../ui/Button'
-import { getInsightArticles } from '../../data/insights'
 import { refreshLocomotiveScroll } from '../../lib/locomotive'
 import { useLocale } from '../../providers/LocaleProvider'
+import { useInsightArticles } from '../../i18n/useLocalizedData'
 
 export default function InsightsHero() {
-  const { locale, t } = useLocale()
+  const { t } = useLocale()
   const reduce = useReducedMotion() ?? false
+  const articles = useInsightArticles()
 
   const collage = useMemo(
     () =>
-      getInsightArticles(locale)
-        .slice(0, 3)
-        .map((article) => ({
-          src: article.cardImage ?? article.coverImage,
-          alt: article.title,
-        })),
-    [locale]
+      articles.slice(0, 3).map((article) => ({
+        src: article.cardImage ?? article.coverImage,
+        alt: article.title,
+      })),
+    [articles],
   )
 
   useLayoutEffect(() => {

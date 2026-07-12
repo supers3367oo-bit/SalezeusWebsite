@@ -5,15 +5,16 @@ import InsightsFilters from '../components/insights/InsightsFilters'
 import ArticlesGrid from '../components/insights/ArticlesGrid'
 import InsightsEmptyState from '../components/insights/InsightsEmptyState'
 import InsightsHubCTA from '../components/insights/InsightsHubCTA'
-import { getFeaturedArticle, getInsightArticles } from '../data/insights'
 import { refreshLocomotiveScroll } from '../lib/locomotive'
 import { useLocale } from '../providers/LocaleProvider'
+import { useFeaturedArticle, useInsightArticles } from '../i18n/useLocalizedData'
 
 export default function InsightsPage() {
   const { locale, t } = useLocale()
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
 
-  const allArticles = useMemo(() => getInsightArticles(locale), [locale])
+  const allArticles = useInsightArticles()
+  const featuredFallback = useFeaturedArticle()
 
   useEffect(() => {
     setActiveCategory(null)
@@ -38,8 +39,8 @@ export default function InsightsPage() {
 
   const spotlightArticle = useMemo(() => {
     if (activeCategory) return null
-    return getFeaturedArticle(locale)
-  }, [activeCategory, locale])
+    return featuredFallback
+  }, [activeCategory, featuredFallback])
 
   const gridArticles = useMemo(() => {
     if (activeCategory) return filteredArticles

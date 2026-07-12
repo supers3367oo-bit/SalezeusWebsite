@@ -4,9 +4,9 @@ import gsap from 'gsap'
 import { useReducedMotion } from 'framer-motion'
 import type { RegionMarker } from './globe/locations'
 import { useLocale } from '../../../providers/LocaleProvider'
+import { useSiteAsset } from '../../../providers/SiteAssetsProvider'
 import { getGlobeLocations } from '../../../data/localized'
 
-const MAP_IMAGE = '/images/about/map.svg'
 const MAP_ASPECT_RATIO = 14078 / 3541
 
 /** Calibrated to pin positions in `locations.ts` (Turkey + Syria cluster). */
@@ -147,6 +147,7 @@ export default function PresenceMap({ className = '' }: PresenceMapProps) {
   const regions = useMemo(() => getGlobeLocations(locale), [locale])
   const reduceMotion = useReducedMotion()
   const reduce = reduceMotion ?? false
+  const mapImage = useSiteAsset('about.map')
 
   return (
     <div
@@ -163,7 +164,7 @@ export default function PresenceMap({ className = '' }: PresenceMapProps) {
       >
         <div className="presence-map__frame relative">
           <img
-            src={MAP_IMAGE}
+            src={mapImage}
             alt={t('experience.map.alt')}
             className="presence-map__image block h-auto w-full pointer-events-none select-none"
             draggable={false}

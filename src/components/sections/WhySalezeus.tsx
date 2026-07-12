@@ -5,6 +5,7 @@ import Aurora from '../ui/Aurora'
 import Particles from '../ui/backgrounds/Particles'
 import Threads from '../ui/backgrounds/Threads'
 import { useLocale } from '../../providers/LocaleProvider'
+import { useSiteAsset } from '../../providers/SiteAssetsProvider'
 import { useLightMotion } from '../../lib/useLightMotion'
 
 const CARDS = [
@@ -27,12 +28,6 @@ const CARDS = [
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
-const MOBILE_CARD_BACKGROUNDS = [
-  '/images/why/strategy-mobile.png',
-  '/images/why/creative-mobile.png',
-  '/images/why/business-mobile.png',
-] as const
-
 type WhyCard = {
   variant: 'dark' | 'light'
   title: readonly [string, string]
@@ -42,10 +37,12 @@ type WhyCard = {
 function CardBackground({
   index,
   useImageFallback,
+  backgroundSrc,
 }: {
   variant: 'dark' | 'light'
   index: number
   useImageFallback: boolean
+  backgroundSrc: string
 }) {
   const fallbackClass =
     index === 0
@@ -59,7 +56,7 @@ function CardBackground({
       <div className={`absolute inset-0 ${fallbackClass}`} aria-hidden />
       {useImageFallback ? (
         <img
-          src={MOBILE_CARD_BACKGROUNDS[index]}
+          src={backgroundSrc}
           alt=""
           aria-hidden
           draggable={false}
@@ -143,11 +140,13 @@ function DarkFactCard({
   index,
   isRtl,
   useImageFallback,
+  backgroundSrc,
 }: {
   card: WhyCard
   index: number
   isRtl: boolean
   useImageFallback: boolean
+  backgroundSrc: string
 }) {
   const isBrandBlue = index === 2
 
@@ -162,7 +161,12 @@ function DarkFactCard({
       }`}
     >
       <div className="absolute inset-0 min-h-[200px]">
-        <CardBackground variant="dark" index={index} useImageFallback={useImageFallback} />
+        <CardBackground
+          variant="dark"
+          index={index}
+          useImageFallback={useImageFallback}
+          backgroundSrc={backgroundSrc}
+        />
         <div
           className={`absolute inset-0 ${
             isBrandBlue
@@ -194,11 +198,13 @@ function LightFactCard({
   index,
   isRtl,
   useImageFallback,
+  backgroundSrc,
 }: {
   card: WhyCard
   index: number
   isRtl: boolean
   useImageFallback: boolean
+  backgroundSrc: string
 }) {
   return (
     <motion.article
@@ -209,7 +215,12 @@ function LightFactCard({
       className="relative flex min-h-[360px] flex-col overflow-hidden rounded-card bg-[#ECE8E2] sm:min-h-[400px] lg:min-h-[440px]"
     >
       <div className="absolute inset-0 min-h-[200px] opacity-70">
-        <CardBackground variant="light" index={index} useImageFallback={useImageFallback} />
+        <CardBackground
+          variant="light"
+          index={index}
+          useImageFallback={useImageFallback}
+          backgroundSrc={backgroundSrc}
+        />
       </div>
 
       <div className="relative z-10 flex h-full min-h-[inherit] flex-col p-5 sm:p-6">
@@ -237,6 +248,10 @@ export default function WhySalezeus({ sectionId = 'about' }: WhySalezeusProps) {
   const { t, locale } = useLocale()
   const lightMotion = useLightMotion()
   const isRtl = locale === 'ar'
+  const whyStrategy = useSiteAsset('why.strategy')
+  const whyCreative = useSiteAsset('why.creative')
+  const whyBusiness = useSiteAsset('why.business')
+  const cardBackgrounds = [whyStrategy, whyCreative, whyBusiness]
   const cards = [
     {
       ...CARDS[0],
@@ -286,9 +301,27 @@ export default function WhySalezeus({ sectionId = 'about' }: WhySalezeusProps) {
         </motion.div>
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-5">
-          <DarkFactCard card={cards[0]} index={0} isRtl={isRtl} useImageFallback={lightMotion} />
-          <LightFactCard card={cards[1]} index={1} isRtl={isRtl} useImageFallback={lightMotion} />
-          <DarkFactCard card={cards[2]} index={2} isRtl={isRtl} useImageFallback={lightMotion} />
+          <DarkFactCard
+            card={cards[0]}
+            index={0}
+            isRtl={isRtl}
+            useImageFallback={lightMotion}
+            backgroundSrc={cardBackgrounds[0]}
+          />
+          <LightFactCard
+            card={cards[1]}
+            index={1}
+            isRtl={isRtl}
+            useImageFallback={lightMotion}
+            backgroundSrc={cardBackgrounds[1]}
+          />
+          <DarkFactCard
+            card={cards[2]}
+            index={2}
+            isRtl={isRtl}
+            useImageFallback={lightMotion}
+            backgroundSrc={cardBackgrounds[2]}
+          />
         </div>
 
         <motion.div

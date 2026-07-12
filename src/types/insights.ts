@@ -26,8 +26,13 @@ export type IndustryCategory = (typeof INDUSTRY_CATEGORIES)[number]
 
 export type ArticleLayout = 'large' | 'standard' | 'compact' | 'horizontal'
 
+/** Inline rich text for SEO-friendly internal/external links inside prose */
+export type InlineSpan =
+  | { type: 'text'; text: string }
+  | { type: 'link'; text: string; href: string; rel?: string }
+
 export type ContentBlock =
-  | { type: 'paragraph'; text: string }
+  | { type: 'paragraph'; text: string; spans?: InlineSpan[] }
   | { type: 'heading'; level: 2 | 3; text: string; id: string }
   | { type: 'pullquote'; text: string; attribution?: string }
   | { type: 'stat'; value: string; label: string; description?: string }
@@ -36,9 +41,9 @@ export type ContentBlock =
       images: { src: string; alt: string; caption?: string }[]
     }
   | { type: 'code'; language: string; code: string }
-  | { type: 'note'; variant: 'info' | 'tip'; title?: string; text: string }
-  | { type: 'callout'; title: string; text: string }
-  | { type: 'list'; ordered: boolean; items: string[] }
+  | { type: 'note'; variant: 'info' | 'tip'; title?: string; text: string; spans?: InlineSpan[] }
+  | { type: 'callout'; title: string; text: string; spans?: InlineSpan[] }
+  | { type: 'list'; ordered: boolean; items: string[]; itemSpans?: (InlineSpan[] | undefined)[] }
   | { type: 'image'; src: string; alt: string; caption?: string; wide?: boolean }
 
 export type InsightArticle = {

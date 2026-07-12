@@ -1,4 +1,5 @@
 import type { ContentBlock } from '../../types/insights'
+import InlineProse from './InlineProse'
 
 type ArticleBodyProps = {
   blocks: ContentBlock[]
@@ -14,7 +15,7 @@ export default function ArticleBody({ blocks }: ArticleBodyProps) {
           case 'paragraph':
             return (
               <p key={index} className={proseParagraph}>
-                {block.text}
+                <InlineProse spans={block.spans} fallback={block.text} />
               </p>
             )
 
@@ -175,7 +176,7 @@ export default function ArticleBody({ blocks }: ArticleBodyProps) {
                   className="text-sz-primary/65 text-sm leading-relaxed"
                   style={{ fontFamily: 'var(--font-body)' }}
                 >
-                  {block.text}
+                  <InlineProse spans={block.spans} fallback={block.text} />
                 </p>
               </aside>
             )
@@ -196,7 +197,7 @@ export default function ArticleBody({ blocks }: ArticleBodyProps) {
                   className="text-white/55 leading-relaxed"
                   style={{ fontFamily: 'var(--font-body)', fontSize: 15 }}
                 >
-                  {block.text}
+                  <InlineProse spans={block.spans} fallback={block.text} />
                 </p>
               </aside>
             )
@@ -210,7 +211,9 @@ export default function ArticleBody({ blocks }: ArticleBodyProps) {
                   style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem', lineHeight: 1.75 }}
                 >
                   {block.items.map((item, i) => (
-                    <li key={i}>{item}</li>
+                    <li key={i}>
+                      <InlineProse spans={block.itemSpans?.[i]} fallback={item} />
+                    </li>
                   ))}
                 </ol>
               )
@@ -222,7 +225,9 @@ export default function ArticleBody({ blocks }: ArticleBodyProps) {
                 style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem', lineHeight: 1.75 }}
               >
                 {block.items.map((item, i) => (
-                  <li key={i}>{item}</li>
+                  <li key={i}>
+                    <InlineProse spans={block.itemSpans?.[i]} fallback={item} />
+                  </li>
                 ))}
               </ul>
             )

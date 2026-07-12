@@ -3,12 +3,22 @@ import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import SplitText from '../ui/SplitText'
 import Button from '../ui/Button'
-import { getArticlesForHome, formatArticleDate } from '../../data/insights'
+import { formatArticleDate } from '../../data/insights'
 import { useLocale } from '../../providers/LocaleProvider'
+import { useHomeVisibility } from '../../providers/HomeVisibilityProvider'
+import { useInsightArticles } from '../../i18n/useLocalizedData'
 
 export default function LatestInsights() {
   const { locale, t } = useLocale()
-  const articles = useMemo(() => getArticlesForHome(3, locale), [locale])
+  const { isOnHome, visibility } = useHomeVisibility()
+  const allArticles = useInsightArticles()
+  const articles = useMemo(() => {
+    const hasOverrides = Object.keys(visibility.insights).length > 0
+    const source = hasOverrides
+      ? allArticles.filter((article) => isOnHome('insights', article.slug, false))
+      : allArticles
+    return source.slice(0, 3)
+  }, [allArticles, isOnHome, visibility.insights])
 
   return (
     <section className="section-surface section-padding" id="insights">

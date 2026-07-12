@@ -1,14 +1,15 @@
-import { useLayoutEffect, useMemo } from 'react'
+import { useLayoutEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import SplitText from '../ui/SplitText'
 import ScrollReveal from '../ui/ScrollReveal'
-import { getAllProjects } from '../../data/projectDetails'
 import { refreshLocomotiveScroll } from '../../lib/locomotive'
 import { useLocale } from '../../providers/LocaleProvider'
+import { useAllProjects } from '../../i18n/useLocalizedData'
 
 export default function PortfolioHero() {
-  const { locale, t } = useLocale()
-  const projectCount = useMemo(() => getAllProjects(locale).length, [locale])
+  const { t } = useLocale()
+  const projects = useAllProjects()
+  const projectCount = projects.length
   const reduce = useReducedMotion() ?? false
 
   useLayoutEffect(() => {

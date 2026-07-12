@@ -103,6 +103,8 @@ export type ProjectDetail = ProjectListItem & {
   deliverables: string[]
   work: ProjectWork
   relatedSlugs: string[]
+  /** When set (CMS), Behance gallery uses these images as the source of truth */
+  galleryImages?: ProjectVisual[]
 }
 
 export const SERVICE_SLUG_LABEL: Record<ProjectServiceSlug, ProjectServiceLabel> = {

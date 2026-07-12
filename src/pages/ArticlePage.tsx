@@ -8,18 +8,16 @@ import RelatedArticles from '../components/insights/RelatedArticles'
 import ArticleEndCTA from '../components/insights/ArticleEndCTA'
 import ArticleShare from '../components/insights/ArticleShare'
 import ArticleSEO from '../components/seo/ArticleSEO'
-import {
-  extractHeadings,
-  getArticleBySlug,
-  getRelatedArticles,
-} from '../data/insights'
+import { extractHeadings, getRelatedArticles } from '../data/insights'
 import { refreshLocomotiveScroll } from '../lib/locomotive'
 import { useLocale } from '../providers/LocaleProvider'
+import { useArticle, useInsightArticles } from '../i18n/useLocalizedData'
 
 export default function ArticlePage() {
   const { locale, t } = useLocale()
   const { slug } = useParams<{ slug: string }>()
-  const article = slug ? getArticleBySlug(slug, locale) : undefined
+  const article = useArticle(slug)
+  const allArticles = useInsightArticles()
 
   useEffect(() => {
     requestAnimationFrame(() => refreshLocomotiveScroll())
@@ -44,7 +42,19 @@ export default function ArticlePage() {
   }
 
   const headings = extractHeadings(article.content)
-  const related = getRelatedArticles(article, 3, locale)
+  const related = allArticles
+    .filter((item) => item.slug !== article.slug)
+    .filter(
+      (item) =>
+        item.service === article.service ||
+        item.industry === article.industry ||
+        item.topics.some((topic) => article.topics.includes(topic)),
+    )
+    .slice(0, 3)
+  const relatedFallback =
+    related.length > 0
+      ? related
+      : getRelatedArticles(article, 3, locale)
 
   return (
     <>
@@ -72,7 +82,7 @@ export default function ArticlePage() {
         </div>
       </section>
 
-      <RelatedArticles articles={related} />
+      <RelatedArticles articles={relatedFallback} />
       <ArticleEndCTA />
     </>
   )

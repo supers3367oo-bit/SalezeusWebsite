@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import Button from '../ui/Button'
 import SplitText from '../ui/SplitText'
 import ScrollReveal from '../ui/ScrollReveal'
-import { CONTACT_EMAIL } from '../../data/contact'
+import { useCmsContact } from '../../cms/useCmsContact'
 import { useLocale } from '../../providers/LocaleProvider'
 
 type ClosingFutureProps = {
@@ -12,6 +12,7 @@ type ClosingFutureProps = {
 
 export default function ClosingFuture({ sectionId = 'contact' }: ClosingFutureProps) {
   const { t } = useLocale()
+  const { email } = useCmsContact()
   const reduce = useReducedMotion()
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -92,7 +93,7 @@ export default function ClosingFuture({ sectionId = 'contact' }: ClosingFuturePr
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
         >
-          <Button href={`mailto:${CONTACT_EMAIL}`}>
+          <Button href={`mailto:${email}`}>
             {t('closing.startConversation')}
           </Button>
           <Button to="/portfolio">

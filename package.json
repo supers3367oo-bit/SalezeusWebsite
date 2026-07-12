@@ -5,7 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:server": "npm --prefix server run dev",
+    "server:install": "npm --prefix server install",
+    "server:start": "npm --prefix server start",
     "build": "tsc && vite build",
+    "build:prod": "tsc && vite build && npm --prefix server install --omit=dev",
+    "start": "npm --prefix server start",
     "preview": "vite preview"
   },
   "dependencies": {

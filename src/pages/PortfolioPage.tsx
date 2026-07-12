@@ -3,17 +3,18 @@ import PortfolioHero from '../components/portfolio/PortfolioHero'
 import PortfolioFiltersSidebar from '../components/portfolio/PortfolioFiltersSidebar'
 import PortfolioProjectsGrid from '../components/portfolio/PortfolioProjectsGrid'
 import ClosingFuture from '../components/sections/ClosingFuture'
-import { filterProjects, getAllProjects } from '../data/projectDetails'
+import { filterProjects } from '../data/projectDetails'
 import type { ProjectServiceSlug } from '../types/projectDetail'
 import { refreshLocomotiveScroll } from '../lib/locomotive'
 import { useLocale } from '../providers/LocaleProvider'
+import { useAllProjects } from '../i18n/useLocalizedData'
 
 export default function PortfolioPage() {
   const { locale } = useLocale()
   const [serviceFilter, setServiceFilter] = useState<ProjectServiceSlug | null>(null)
   const [fieldFilter, setFieldFilter] = useState<string | null>(null)
 
-  const allProjects = useMemo(() => getAllProjects(locale), [locale])
+  const allProjects = useAllProjects()
 
   const filteredProjects = useMemo(
     () =>

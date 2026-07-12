@@ -6,49 +6,16 @@ import Button from '../ui/Button'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLocale } from '../../providers/LocaleProvider'
+import { useSiteAsset } from '../../providers/SiteAssetsProvider'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const CASES = [
-  {
-    client: 'Panda',
-    title: 'Premium Künefe',
-    service: 'Branding + Packaging',
-    image: '/images/cases/panda-kunefe.png',
-  },
-  {
-    client: 'Ark Oto',
-    title: 'Farklı Dokun',
-    service: 'Marketing Campaign',
-    image: '/images/cases/ark-oto.png',
-  },
-  {
-    client: 'Cake Station',
-    title: 'Coffee Identity',
-    service: 'Brand Identity',
-    image: '/images/cases/cake-station.png',
-  },
-  {
-    client: 'Panda',
-    title: 'Premium Künefe',
-    service: 'Branding + Packaging',
-    image: '/images/cases/panda-kunefe.png',
-  },
-  {
-    client: 'Ark Oto',
-    title: 'Farklı Dokun',
-    service: 'Marketing Campaign',
-    image: '/images/cases/ark-oto.png',
-  },
-  {
-    client: 'Cake Station',
-    title: 'Coffee Identity',
-    service: 'Brand Identity',
-    image: '/images/cases/cake-station.png',
-  }
-]
-
-type CaseData = (typeof CASES)[number]
+type CaseData = {
+  client: string
+  title: string
+  service: string
+  image: string
+}
 
 function ArchiveCard({
   c,
@@ -161,6 +128,47 @@ function SectionCTAs({ className = '' }: { className?: string }) {
 export default function FeaturedSuccess() {
   const { t, dir, locale } = useLocale()
   const isRtl = dir === 'rtl'
+  const pandaImage = useSiteAsset('cases.pandaKunefe')
+  const arkImage = useSiteAsset('cases.arkOto')
+  const cakeImage = useSiteAsset('cases.cakeStation')
+  const CASES: CaseData[] = [
+    {
+      client: 'Panda',
+      title: 'Premium Künefe',
+      service: 'Branding + Packaging',
+      image: pandaImage,
+    },
+    {
+      client: 'Ark Oto',
+      title: 'Farklı Dokun',
+      service: 'Marketing Campaign',
+      image: arkImage,
+    },
+    {
+      client: 'Cake Station',
+      title: 'Coffee Identity',
+      service: 'Brand Identity',
+      image: cakeImage,
+    },
+    {
+      client: 'Panda',
+      title: 'Premium Künefe',
+      service: 'Branding + Packaging',
+      image: pandaImage,
+    },
+    {
+      client: 'Ark Oto',
+      title: 'Farklı Dokun',
+      service: 'Marketing Campaign',
+      image: arkImage,
+    },
+    {
+      client: 'Cake Station',
+      title: 'Coffee Identity',
+      service: 'Brand Identity',
+      image: cakeImage,
+    },
+  ]
   const archiveSubtitleStyle = {
     fontFamily: 'var(--font-body)',
     fontSize: 'clamp(14px, 3.8vw, 15px)',

@@ -1,8 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useLocale } from '../../../providers/LocaleProvider'
-
-const PHILOSOPHY_IMAGE_LEFT = '/images/about/con1.jpeg'
-const PHILOSOPHY_IMAGE_RIGHT = '/images/about/dev1.png'
+import { useSiteAsset } from '../../../providers/SiteAssetsProvider'
 
 function PhilosophyImage({
   src,
@@ -46,6 +44,8 @@ function PhilosophyParagraphs({ paragraphs }: { paragraphs: string[] }) {
 export default function ExperiencePhilosophy() {
   const { t } = useLocale()
   const reduce = useReducedMotion()
+  const philosophyLeft = useSiteAsset('about.philosophyLeft')
+  const philosophyRight = useSiteAsset('about.philosophyRight')
   const rowOneCopy = [
     t('experience.philosophy.rowOne.p1'),
     t('experience.philosophy.rowOne.p2'),
@@ -67,7 +67,7 @@ export default function ExperiencePhilosophy() {
               transition={{ duration: 0.55 }}
             >
               <PhilosophyImage
-                src={PHILOSOPHY_IMAGE_LEFT}
+                src={philosophyLeft}
                 alt={t('experience.philosophy.imageLeftAlt')}
                 className="aspect-[4/3] w-full max-w-xl"
               />
@@ -125,7 +125,7 @@ export default function ExperiencePhilosophy() {
               className="order-1 lg:order-2 lg:ml-auto"
             >
               <PhilosophyImage
-                src={PHILOSOPHY_IMAGE_RIGHT}
+                src={philosophyRight}
                 alt={t('experience.philosophy.imageRightAlt')}
                 className="aspect-[4/3] w-full max-w-xl lg:ml-auto"
               />

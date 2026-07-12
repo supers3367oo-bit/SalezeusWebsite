@@ -50,6 +50,13 @@ export function collectProjectGalleryImages(project: ProjectDetail): ProjectVisu
     aspect: '16/9',
   })
 
+  if (project.galleryImages && project.galleryImages.length > 0) {
+    for (const visual of project.galleryImages) {
+      addVisual(images, seen, visual)
+    }
+    return images
+  }
+
   collectFromWork(images, seen, project.work)
   return images
 }

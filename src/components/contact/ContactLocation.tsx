@@ -1,12 +1,13 @@
 import { useMemo } from 'react'
 import { MapPin, Mail, Phone } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { CONTACT_EMAIL, getOfficePhone } from '../../data/contact'
+import { useCmsContact } from '../../cms/useCmsContact'
 import { getGlobeLocations } from '../../data/localized'
 import { useLocale } from '../../providers/LocaleProvider'
 
 export default function ContactLocation() {
   const { locale, t } = useLocale()
+  const { email, getOfficePhone } = useCmsContact()
   const reduce = useReducedMotion() ?? false
   const regions = useMemo(() => getGlobeLocations(locale), [locale])
 
@@ -127,7 +128,7 @@ export default function ContactLocation() {
         </div>
 
         <motion.a
-          href={`mailto:${CONTACT_EMAIL}`}
+          href={`mailto:${email}`}
           initial={reduce ? false : { opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -138,7 +139,7 @@ export default function ContactLocation() {
           <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
             <Mail size={18} strokeWidth={2} />
           </span>
-          {CONTACT_EMAIL}
+          {email}
         </motion.a>
       </div>
     </section>

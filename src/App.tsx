@@ -15,33 +15,49 @@ import ServicesPage from './pages/ServicesPage'
 import ServiceDetailPage from './pages/ServiceDetailPage'
 import ProjectDetailPage from './pages/ProjectDetailPage'
 import PortfolioPage from './pages/PortfolioPage'
+import AdminApp from './admin/AdminApp'
+import { SiteAssetsProvider } from './providers/SiteAssetsProvider'
+import { HomeVisibilityProvider } from './providers/HomeVisibilityProvider'
+
+function PublicSite() {
+  return (
+    <LocomotiveProvider>
+      <ScrollToTop />
+      <ScrollAnchorHandler />
+      <div className="bg-sz-dark">
+        <CustomCursor />
+        <FloatingActions />
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/:slug" element={<ServiceDetailPage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path="/portfolio/:slug" element={<ProjectDetailPage />} />
+            <Route path="/insights" element={<InsightsPage />} />
+            <Route path="/insights/:slug" element={<ArticlePage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </LocomotiveProvider>
+  )
+}
 
 export default function App() {
   return (
     <BrowserRouter>
-      <LocomotiveProvider>
-        <ScrollToTop />
-        <ScrollAnchorHandler />
-        <div className="bg-sz-dark">
-          <CustomCursor />
-          <FloatingActions />
-          <Navbar />
-          <main>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/services" element={<ServicesPage />} />
-              <Route path="/services/:slug" element={<ServiceDetailPage />} />
-              <Route path="/portfolio" element={<PortfolioPage />} />
-              <Route path="/portfolio/:slug" element={<ProjectDetailPage />} />
-              <Route path="/insights" element={<InsightsPage />} />
-              <Route path="/insights/:slug" element={<ArticlePage />} />
-              <Route path="/contact" element={<ContactPage />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </LocomotiveProvider>
+      <SiteAssetsProvider>
+        <HomeVisibilityProvider>
+          <Routes>
+            <Route path="/admin/*" element={<AdminApp />} />
+            <Route path="*" element={<PublicSite />} />
+          </Routes>
+        </HomeVisibilityProvider>
+      </SiteAssetsProvider>
     </BrowserRouter>
   )
 }

@@ -5,13 +5,14 @@ import ContactBackground from '../components/contact/ContactBackground'
 import ContactForm from '../components/contact/ContactForm'
 import ContactLocation from '../components/contact/ContactLocation'
 import ContactPhones from '../components/contact/ContactPhones'
-import { CONTACT_EMAIL } from '../data/contact'
+import { useCmsContact } from '../cms/useCmsContact'
 import { refreshLocomotiveScroll } from '../lib/locomotive'
 import { useLightMotion } from '../lib/useLightMotion'
 import { useLocale } from '../providers/LocaleProvider'
 
 export default function ContactPage() {
   const { t } = useLocale()
+  const { email } = useCmsContact()
   const reduce = useReducedMotion() ?? false
   const lightMotion = useLightMotion()
 
@@ -65,11 +66,11 @@ export default function ContactPage() {
                     {t('contact.email')}
                   </p>
                   <a
-                    href={`mailto:${CONTACT_EMAIL}`}
+                    href={`mailto:${email}`}
                     className="text-white/60 hover:text-white transition-colors duration-200"
                     style={{ fontFamily: 'var(--font-body)', fontSize: 15 }}
                   >
-                    {CONTACT_EMAIL}
+                    {email}
                   </a>
                 </div>
 

@@ -5,6 +5,7 @@ import ServiceCard from '../services/ServiceCard'
 import { refreshLocomotiveScroll } from '../../lib/locomotive'
 import { useLocale } from '../../providers/LocaleProvider'
 import { useLocalizedServices } from '../../i18n/useLocalizedServices'
+import { useHomeVisibility } from '../../providers/HomeVisibilityProvider'
 import type { Service } from '../../types/services'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -42,10 +43,11 @@ export default function OurSolutions() {
     </>
   )
   const services = useLocalizedServices()
-  const orderedServices = useMemo(
-    () => (isRtl ? [...services].reverse() : services),
-    [services, isRtl]
-  )
+  const { isOnHome } = useHomeVisibility()
+  const orderedServices = useMemo(() => {
+    const visible = services.filter((service) => isOnHome('services', service.slug, true))
+    return isRtl ? [...visible].reverse() : visible
+  }, [services, isRtl, isOnHome])
   const sectionRef = useRef<HTMLElement>(null)
   const pinRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)

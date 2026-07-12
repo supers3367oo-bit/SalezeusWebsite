@@ -4,6 +4,7 @@ import DotGrid from '../ui/backgrounds/DotGrid'
 import Button from '../ui/Button'
 import { refreshLocomotiveScroll } from '../../lib/locomotive'
 import { useLocale } from '../../providers/LocaleProvider'
+import { useSiteAsset } from '../../providers/SiteAssetsProvider'
 
 type Client = {
   name: string
@@ -12,17 +13,20 @@ type Client = {
   logo?: string
 }
 
-const CLIENTS: Client[] = [
-  { name: 'Volkswagen', abbr: 'VW', industry: 'Automotive', logo: '/images/clients/volkswagen.png' },
-  { name: 'TechVenture ME', abbr: 'TV', industry: 'Technology' },
-  { name: 'Bloom Retail', abbr: 'BR', industry: 'E-commerce' },
-  { name: 'Ankara Digital', abbr: 'AD', industry: 'SaaS' },
-  { name: 'Luxe Events', abbr: 'LE', industry: 'Events' },
-  { name: 'FoodHub Group', abbr: 'FH', industry: 'F&B' },
-  { name: 'Metro Corp', abbr: 'MC', industry: 'Logistics' },
-  { name: 'Nova Brands', abbr: 'NB', industry: 'Fashion' },
-  { name: 'Summit Co.', abbr: 'SC', industry: 'Finance' },
-]
+function useClients(): Client[] {
+  const volkswagenLogo = useSiteAsset('clients.volkswagen')
+  return [
+    { name: 'Volkswagen', abbr: 'VW', industry: 'Automotive', logo: volkswagenLogo },
+    { name: 'TechVenture ME', abbr: 'TV', industry: 'Technology' },
+    { name: 'Bloom Retail', abbr: 'BR', industry: 'E-commerce' },
+    { name: 'Ankara Digital', abbr: 'AD', industry: 'SaaS' },
+    { name: 'Luxe Events', abbr: 'LE', industry: 'Events' },
+    { name: 'FoodHub Group', abbr: 'FH', industry: 'F&B' },
+    { name: 'Metro Corp', abbr: 'MC', industry: 'Logistics' },
+    { name: 'Nova Brands', abbr: 'NB', industry: 'Fashion' },
+    { name: 'Summit Co.', abbr: 'SC', industry: 'Finance' },
+  ]
+}
 
 const INDUSTRY_KEYS = [
   'medicalTourism',
@@ -160,16 +164,18 @@ function MarqueeRow({
 }
 
 function StaticFallback({
+  clients,
   industries,
   useArabicTypography = false,
 }: {
+  clients: Client[]
   industries: string[]
   useArabicTypography?: boolean
 }) {
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-8">
-        {CLIENTS.map((client, i) => (
+        {clients.map((client, i) => (
           <motion.div
             key={client.name}
             initial={{ opacity: 0, y: 16 }}
@@ -209,6 +215,7 @@ function StaticFallback({
 export default function TrustedBy() {
   const { t, locale } = useLocale()
   const isArabic = locale === 'ar'
+  const clients = useClients()
   const industries = INDUSTRY_KEYS.map((key) => t(`trustedBy.industries.${key}`))
   const prefersReducedMotion = useReducedMotion()
   const [paused, setPaused] = useState(false)
@@ -299,7 +306,7 @@ export default function TrustedBy() {
 
         <div className="w-full shrink-0 lg:mt-auto">
           {prefersReducedMotion ? (
-            <StaticFallback industries={industries} useArabicTypography={isArabic} />
+            <StaticFallback clients={clients} industries={industries} useArabicTypography={isArabic} />
           ) : (
             <div className="relative -mx-6 lg:-mx-8" dir="ltr">
               <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-sz-surface to-transparent sm:w-24" />
@@ -307,7 +314,7 @@ export default function TrustedBy() {
 
               <MarqueeRow
                 variant="logo"
-                clients={CLIENTS}
+                clients={clients}
                 direction="left"
                 speed={36}
                 paused={paused}

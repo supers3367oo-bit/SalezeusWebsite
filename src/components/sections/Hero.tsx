@@ -399,6 +399,8 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
           >
             <span
+              dir="ltr"
+              lang="en"
               style={{
                 fontFamily: "'Anton', sans-serif",
                 fontSize: isMobile

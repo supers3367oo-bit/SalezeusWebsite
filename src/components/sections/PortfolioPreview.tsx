@@ -3,28 +3,33 @@ import { AnimatePresence, motion } from 'framer-motion'
 import SplitText from '../ui/SplitText'
 import Button from '../ui/Button'
 import PortfolioProjectCard from '../portfolio/PortfolioProjectCard'
-import { getAllProjects } from '../../data/projectDetails'
 import { useLocale } from '../../providers/LocaleProvider'
+import { useHomeVisibility } from '../../providers/HomeVisibilityProvider'
+import { useAllProjects } from '../../i18n/useLocalizedData'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 const PREVIEW_LIMIT = 4
 
 export default function PortfolioPreview() {
-  const { locale, t } = useLocale()
+  const { t } = useLocale()
+  const { isOnHome } = useHomeVisibility()
   const [activeFilter, setActiveFilter] = useState<string>('All')
+  const projects = useAllProjects()
 
   const allProjects = useMemo(
     () =>
-      getAllProjects(locale).map((p) => ({
-        id: p.id,
-        slug: p.slug,
-        client: p.client,
-        field: p.field,
-        services: [p.serviceLabel],
-        summary: p.summary,
-        image: p.image,
-      })),
-    [locale]
+      projects
+        .filter((p) => isOnHome('projects', p.slug, true))
+        .map((p) => ({
+          id: p.id,
+          slug: p.slug,
+          client: p.client,
+          field: p.field,
+          services: [p.serviceLabel],
+          summary: p.summary,
+          image: p.image,
+        })),
+    [projects, isOnHome],
   )
 
   const serviceFilters = useMemo(() => {

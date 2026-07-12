@@ -1,0 +1,21 @@
+{
+  "name": "salezeus-cms-server",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Salezeus admin CMS API — persists dashboard content for the public website",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1",
+    "salezeus": "file:.."
+  }
+}

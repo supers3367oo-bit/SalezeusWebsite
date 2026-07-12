@@ -20,31 +20,36 @@ import ServiceOtherServices from '../components/services/detail/ServiceOtherServ
 
 import ClosingFuture from '../components/sections/ClosingFuture'
 
-import { getOtherServices, getServiceBySlug } from '../data/services'
-
-import { getProjectsForService } from '../data/projects'
-
 import { getReviewsForService } from '../data/serviceReviews'
-
 import { refreshLocomotiveScroll } from '../lib/locomotive'
 import { useLocale } from '../providers/LocaleProvider'
+import { useAllProjects, useOtherServices, useServiceDetail } from '../i18n/useLocalizedData'
+import { useMemo } from 'react'
+import type { ProjectServiceSlug } from '../types/projectDetail'
 
-
+const SERVICE_MATCH: Record<string, ProjectServiceSlug> = {
+  branding: 'branding',
+  marketing: 'marketing',
+  'social-media': 'social-media',
+  'business-consulting': 'business-consulting',
+  'web-development': 'web-development',
+  'mobile-apps': 'mobile-apps',
+}
 
 export default function ServiceDetailPage() {
   const { locale, t } = useLocale()
-
   const { slug } = useParams<{ slug: string }>()
-
-  const service = getServiceBySlug(slug, locale)
-
-  const projects = slug ? getProjectsForService(slug, locale) : []
-
+  const service = useServiceDetail(slug)
+  const allProjects = useAllProjects()
+  const projects = useMemo(() => {
+    if (!slug) return []
+    const matched = SERVICE_MATCH[slug]
+    if (!matched) return allProjects.slice(0, 4)
+    return allProjects.filter((project) => project.service === matched)
+  }, [slug, allProjects])
   const industries = service?.industries.map((item) => item.industry) ?? []
-
   const reviews = slug ? getReviewsForService(slug, locale) : []
-
-  const otherServices = slug ? getOtherServices(slug, locale) : []
+  const otherServices = useOtherServices(slug)
 
 
 

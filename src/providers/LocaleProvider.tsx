@@ -14,6 +14,8 @@ import type { Locale, TranslationTree } from '../i18n/types'
 import { refreshLocomotiveScroll } from '../lib/locomotive'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useCmsContentOptional } from '../cms/CmsContentProvider'
+import { deepMergeMessages } from '../cms/adapters'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -38,6 +40,7 @@ function readStoredLocale(): Locale {
 }
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
+  const cms = useCmsContentOptional()
   const [locale, setLocaleState] = useState<Locale>(() => {
     const stored = readStoredLocale()
     if (typeof document !== 'undefined') {
@@ -70,14 +73,17 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     setLocaleState((current) => (current === 'en' ? 'ar' : 'en'))
   }, [])
 
-  const t = useCallback(
-    (key: string) => getTranslation(MESSAGES[locale], key),
-    [locale]
-  )
+  const messages = useMemo(() => {
+    const base = MESSAGES[locale]
+    const overlay = cms?.messagesOverlay(locale) ?? {}
+    return deepMergeMessages(base, overlay)
+  }, [locale, cms])
+
+  const t = useCallback((key: string) => getTranslation(messages, key), [messages])
 
   const value = useMemo(
     () => ({ locale, dir, setLocale, toggleLocale, t }),
-    [locale, dir, setLocale, toggleLocale, t]
+    [locale, dir, setLocale, toggleLocale, t],
   )
 
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>

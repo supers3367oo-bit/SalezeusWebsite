@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import { useSiteAsset } from '../../providers/SiteAssetsProvider'
 
 type LogoOrbProps = {
   className?: string
@@ -14,10 +15,11 @@ export default function LogoOrb({
   animate = true,
 }: LogoOrbProps) {
   const reduce = useReducedMotion()
+  const orbSrc = useSiteAsset('brand.logoOrb')
 
   return (
     <motion.img
-      src="/images/brand/logo-orb.png"
+      src={orbSrc}
       alt=""
       aria-hidden
       className={`pointer-events-none select-none object-contain ${className}`}
