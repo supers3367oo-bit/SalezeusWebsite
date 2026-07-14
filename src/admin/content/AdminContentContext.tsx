@@ -216,17 +216,26 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let cancelled = false
-    adminApi
-      .getContent()
-      .then((data) => {
-        if (!cancelled) {
-          setContentState(normalizeContent(data))
-          setLoading(false)
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-        if (!cancelled) {
+    let attempts = 0
+
+    const load = () => {
+      attempts += 1
+      adminApi
+        .getContent()
+        .then((data) => {
+          if (!cancelled) {
+            setContentState(normalizeContent(data))
+            setLoading(false)
+          }
+        })
+        .catch((error) => {
+          console.error(error)
+          if (cancelled) return
+          // Brief retry — Vite proxy can reset while the CMS server is restarting
+          if (attempts < 3) {
+            window.setTimeout(load, 600 * attempts)
+            return
+          }
           setLoading(false)
           pushToast(
             uiLocale === 'ar'
@@ -234,8 +243,10 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
               : 'CMS server unreachable — run npm run dev:server',
             'error',
           )
-        }
-      })
+        })
+    }
+
+    load()
     return () => {
       cancelled = true
     }

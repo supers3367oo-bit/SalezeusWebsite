@@ -54,33 +54,56 @@ export default function AdminShell() {
   }, [location.pathname])
 
   return (
-    <div className="min-h-screen bg-sz-surface font-body text-sz-dark antialiased">
-      <AdminSidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
-      <div className="lg:ps-64">
-        <AdminTopbar title={title} onMenuClick={() => setMenuOpen(true)} />
-        <main className="px-4 py-6 sm:px-6 lg:px-8">
-          {loading ? (
-            <div className="flex min-h-[40vh] items-center justify-center">
-              <div className="flex items-center gap-3 text-sm text-sz-primary/60">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-sz-interaction" />
-                {isAr ? 'جاري تحميل المحتوى…' : 'Loading content…'}
-              </div>
-            </div>
-          ) : (
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={location.pathname}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Outlet />
-              </motion.div>
-            </AnimatePresence>
-          )}
-        </main>
+    <div className="relative h-svh overflow-hidden font-body text-sz-dark antialiased">
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[#0a0d14]">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_15%_0%,rgba(50,88,164,0.35),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_90%_10%,rgba(212,175,55,0.12),transparent_50%)]" />
+        <div
+          className="absolute inset-0 opacity-[0.4]"
+          style={{
+            backgroundImage:
+              'radial-gradient(rgba(255,255,255,0.06) 0.8px, transparent 0.8px)',
+            backgroundSize: '18px 18px',
+            maskImage: 'radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent)',
+          }}
+        />
       </div>
+
+      <AdminSidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
+
+      <div className="h-full lg:ps-[18rem]">
+        <div className="h-full lg:p-3 lg:ps-0">
+          <div className="admin-scroll flex h-full flex-col overflow-y-auto overflow-x-hidden border-white/10 bg-[#f3f5f9] lg:rounded-[1.75rem] lg:border lg:shadow-[0_30px_80px_-40px_rgba(0,0,0,0.65)]">
+            <AdminTopbar title={title} onMenuClick={() => setMenuOpen(true)} />
+            <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:pb-10">
+              {loading ? (
+                <div className="flex min-h-[42vh] items-center justify-center">
+                  <div className="flex items-center gap-3 rounded-2xl border border-sz-border/70 bg-white px-5 py-3.5 text-sm text-sz-primary/65 shadow-sm">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="absolute inset-0 animate-ping rounded-full bg-sz-interaction/45" />
+                      <span className="relative h-2.5 w-2.5 rounded-full bg-sz-interaction" />
+                    </span>
+                    {isAr ? 'جاري تحميل المحتوى…' : 'Loading content…'}
+                  </div>
+                </div>
+              ) : (
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={location.pathname}
+                    initial={{ opacity: 0, y: 14, filter: 'blur(4px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <Outlet />
+                  </motion.div>
+                </AnimatePresence>
+              )}
+            </main>
+          </div>
+        </div>
+      </div>
+
       <AdminToasts />
     </div>
   )
